@@ -1,16 +1,21 @@
+const cloudinary = require("cloudinary").v2;
+const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const multer = require("multer");
-//tạo đường dẫn cho upload
+require("dotenv").config();
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_NAME,
+  api_key: process.env.CLOUDINARY_KEY,
+  api_secret: process.env.CLOUDINARY_SECRET,
+});
 
-// Set up storage for uploaded files
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "src/public/uploads");
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + "-" + file.originalname);
+const storage = new CloudinaryStorage({
+  cloudinary,
+  allowedFormats: ["jpg", "png"],
+  params: {
+    folder: "Shopping_Cart",
   },
 });
 
-// Create the multer instance
-const upload = multer({ storage: storage });
-module.exports = upload;
+const uploadCloud = multer({ storage });
+
+module.exports = uploadCloud;

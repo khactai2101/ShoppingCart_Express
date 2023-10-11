@@ -1,12 +1,12 @@
-const User = require("../models/user.model");
+const User = require("../models/user");
 
 // Middleware để kiểm tra sự tồn tại của người dùng
 const checkUserExistence = async (req, res, next) => {
-  const { username } = req.body;
-  console.log(username);
-  const checkUser = await User.findOne({ where: { username: username } });
+  const { email } = req.body;
+  console.log(email);
+  const checkUser = await User.findOne({ where: { email: email } });
   if (checkUser) {
-    return res.status(409).json({ msg: "username already exists" });
+    return res.status(409).json({ msg: "email already exists" });
   } else {
     res.status(200).json({ msg: " pass" });
     next();

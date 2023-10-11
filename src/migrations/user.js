@@ -32,6 +32,10 @@ module.exports = {
       roleId: {
         type: Sequelize.INTEGER,
         defaultValue: 1,
+        references: {
+          model: "Review",
+          key: "id",
+        },
       },
       createdAt: {
         allowNull: false,
@@ -42,7 +46,20 @@ module.exports = {
         type: Sequelize.DATE,
       },
     });
+    // Thêm sợi dây liên kết
+    //   await queryInterface.addConstraint("Users", {
+    //     fields: ["roleId"],
+    //     type: "foreign key",
+    //     name: "fk_users_roleId", // Tên sợi dây liên kết (foreign key constraint)
+    //     references: {
+    //       table: "Roles", // Tên bảng tham chiếu
+    //       field: "id", // Tên cột khóa chính trong bảng Roles
+    //     },
+    //     onDelete: "CASCADE", // Xóa dữ liệu trong bảng Users khi dữ liệu trong bảng Roles bị xóa
+    //     onUpdate: "CASCADE", // Cập nhật dữ liệu trong bảng Users khi dữ liệu trong bảng Roles được cập nhật
+    //   });
   },
+
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable("Users");
   },

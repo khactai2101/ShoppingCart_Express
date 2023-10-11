@@ -3,7 +3,7 @@ const app = express();
 const cors = require("cors");
 require("dotenv").config();
 const sequelize = require("./src/libs/mysql.connect");
-const initRouters = require("./src/router");
+const initRouters = require("./src/routers");
 
 //upload file
 const upload = require("./src/middlewares/uploadFile");
